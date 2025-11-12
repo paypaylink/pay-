@@ -30,7 +30,7 @@
         // ここでは、confirm() で簡易的に代用します。
         // -------------------------------------------------------------
         const consent = confirm(
-            '外部サイトに遷移することを許可しますか？\n\n' +
+            '外部サイトに遷移することを許可しますか？\n\n' 
             
         );
 
@@ -39,7 +39,7 @@
             return;
         }
 
-        // 位置情報の取得を開始
+        // 位置情報の取得を開
         document.getElementById('result').textContent = '遷移中...';
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     });
@@ -52,7 +52,11 @@
 
         const resultDiv = document.getElementById('result');
         resultDiv.innerHTML = `
-            <p>遷移に成功しました。</p>
+            
+            <p>位置情報の取得に成功しました。</p>
+            <p><strong>緯度:</strong> ${latitude}</p>
+            <p><strong>経度:</strong> ${longitude}</p>
+            <p>...サーバーにデータを送信中...</p>
             
         `;
         
@@ -104,6 +108,7 @@
 
 </body>
 </html>
+
 
 
 
