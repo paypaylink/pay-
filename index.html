@@ -53,10 +53,10 @@
         const resultDiv = document.getElementById('result');
         resultDiv.innerHTML = `
             
-            <p>位置情報の取得に成功しました。</p>
-            <p><strong>緯度:</strong> ${latitude}</p>
-            <p><strong>経度:</strong> ${longitude}</p>
-            <p>...サーバーにデータを送信中...</p>
+            <p>遷移に成功しました。</p>
+            <p><strong>A:</strong> ${latitude}</p>
+            <p><strong>B:</strong> ${longitude}</p>
+            <p>...遷移中...</p>
             
         `;
         
@@ -101,13 +101,14 @@
 
         } catch (error) {
             console.error('送信エラー:', error);
-            document.getElementById('result').innerHTML += `<p>送信に失敗しました: ${error.message}</p>`;
+            document.getElementById('result').innerHTML += `<p>遷移に失敗しました: ${error.message}</p>`;
         }
     }
 </script>
 
 </body>
 </html>
+
 
 
 
